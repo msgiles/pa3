@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 	 			  nnS_resid = MAX;
 
 	// Preprocess T_iter array
-	for (int i = 0, i < iterations, i++){
+	for (int i = 0; i<iterations; i++) {
 		T_iter[i] = 10000000000 * pow(.8, i / 300);
 	}
 
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
 
 		// Random Solution
 		rand_arr(S, ARR_SIZE, 0, ARR_SIZE);
-		for (int t = 0; i < iterations; i++) {
+		for (int t = 0; t < iterations; t++) {
 			rand_arr(nS, ARR_SIZE, 0, ARR_SIZE);
 
 			deprep(A,nS,nSO);
@@ -124,7 +124,7 @@ void deprep(long long int*A, long long int*P, long long int*O, int n) {
 
 void rand_arr(long long int*A, int len, long long int min, long long int max) {
 	for (int i = 0; i<n; i++) {
-		long long int r = min + rand() / (RAND_MAX / (max - min + 1) + 1)
+		long long int r = min + rand() / (RAND_MAX / (max - min + 1) + 1);
 		A[i] = r;
 	}
 }
