@@ -1,0 +1,2 @@
+#define MAX 1000000000000
+#define ARR_SIZE 100
