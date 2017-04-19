@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 				  nS_resid = MAX;
 	 			  nnS_resid = MAX;
 
-	// Preallocate T_iter array
+	// Preprocess T_iter array
 	for (int i = 0, i < iterations, i++){
 		T_iter[i] = 10000000000 * pow(.8, i / 300);
 	}
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 
 			deprep(A,nS,nSO);
 
-			nS_resid = karmarkar_karp(O, ARR_SIZE);
+			nS_resid = karmarkar_karp(nSO, ARR_SIZE);
 
 			if (nS_resid < S_resid) {
 				memcpy(S, nS, ARR_SIZE * sizeof(int));
@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
 			rand_neighbor(nS, S, 1, ARR_SIZE);
 			deprep(A,nS,nSO);
 
-			nS_resid = karmarkar_karp(O, ARR_SIZE);
+			nS_resid = karmarkar_karp(nSO, ARR_SIZE);
 
 			if (nS_resid < S_resid) {
 				memcpy(S, nS, ARR_SIZE * sizeof(int));
@@ -104,7 +104,6 @@ int main(int argc, char* argv[]) {
 
 			if (S_resid < nnS_resid){
 				memcpy(nnS, S, sizeof(int) * ARR_SIZE);
-
 			}
 		}
 		//TODO: format return
