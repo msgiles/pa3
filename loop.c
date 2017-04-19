@@ -25,8 +25,10 @@ int main(int argc, char* argv[]) {
 		*nSO = malloc(ARR_SIZE, sizeof(long long int));
 		*nnSO = malloc(ARR_SIZE, sizeof(long long int));
 		*T_iter = malloc(iterations, sizeof(float));
-	long long int nS_resid = MAX;
-	long long int nnS_resid = MAX;
+
+	long long int S_resid = MAX;
+				  nS_resid = MAX;
+	 			  nnS_resid = MAX;
 
 	// Preallocate T_iter array
 	for (int i = 0, i < iterations, i++){
