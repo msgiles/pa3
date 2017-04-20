@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h> 
-#include "kk.h"
+#include "helpers.h"
 
 using namespace std;
 
@@ -16,9 +16,9 @@ void rand_neighbor(int *S, int *nS, int min, int max);
 
 int main(int argc, char* argv[]) {
 	srand(time(NULL));
-	int flag = atoi(argv[1]);
-	int trials = atoi(argv[2]);
-	int iterations = atoi(argv[3]);
+	int flag = atoi(argv[1]);  // Debugging flag
+	int trials = atoi(argv[2]);  // Number of diff random int arrays
+	int iterations = atoi(argv[3]);  // For heuristics allowing for multiple runs, number of iters for each trial
 
 	// TODO: timing
 
