@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
 		// cout << "Karmarkar-Karp" << endl;
 		t = clock();
 		S_resid = karmarkar_karp(A,ARR_SIZE);
-		kk.add(clock() - t, S_resid);
+		kk.add(((float)clock() - t) / CLOCKS_PER_SEC, S_resid);
 		S_resid = MAX;
 
 		// Random Solution
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
 		rand_soln(S, ARR_SIZE, 0, ARR_SIZE-1);
 		deprep(A,S,SO,ARR_SIZE);
 		S_resid = karmarkar_karp(SO, ARR_SIZE);
-		for (int t = 0; t < iterations; t++) {
+		for (int i = 0; i < iterations; i++) {
 			rand_soln(nS, ARR_SIZE, 0, ARR_SIZE-1);
 
 			deprep(A,nS,nSO,ARR_SIZE);
@@ -77,7 +77,7 @@ int main(int argc, char* argv[]) {
 				S_resid = nS_resid;
 			}
 		}
-		random.add(clock()-t,S_resid);
+		random.add(((float)clock() - t) / CLOCKS_PER_SEC,S_resid);
 
 		// Hill Climbing
 		// cout << "Hill" << endl;
@@ -102,7 +102,7 @@ int main(int argc, char* argv[]) {
 				S_resid = nS_resid;
 			}
 		}
-		hill.add(clock()-t,S_resid);
+		hill.add(((float)clock() - t) / CLOCKS_PER_SEC,S_resid);
 
 		// Simulated Annealing
 		// cout << "Annealing" << endl;
@@ -139,7 +139,7 @@ int main(int argc, char* argv[]) {
 				memcpy(nnS, S, sizeof(int) * ARR_SIZE);
 			}
 		}
-		annealing.add(clock()-t,nnS_resid);
+		annealing.add(((float)clock() - t) / CLOCKS_PER_SEC,nnS_resid);
 	}
 free(A);free(S);free(nS);free(nnS);free(SO);free(nSO);free(nnSO);free(T_iter);
 

@@ -105,7 +105,7 @@ public:
     }
 };
 
-void Return::add(double t, long long int r){
+void Return::add(float t, long long int r){
     times.push_back(t);
     resids.push_back(r);
 };
@@ -137,6 +137,13 @@ void Return::print_resids(){
         }
     }
 };
+
+// Solution Solution::Solution(long long int*A, int n){
+//     A = A;
+//     P.resize(n);
+//     randomize();
+//     update();
+// };
 
 long long int karmarkar_karp(long long int * A, int n) {
     MaxHeap heap = MaxHeap(A, n);
