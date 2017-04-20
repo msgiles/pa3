@@ -17,11 +17,11 @@ long long int karmarkar_karp(long long int * A, int n);
 class Return
 {
 public:
-	void add(double t, long long int r);
-	Return();
-	~Return();
 	std::vector<double> times;
 	std::vector<long long int> resids;
+	void add(double t, long long int r);
+	void print_times();
+	void print_resids();
 };
 
 #endif //CS124PA3_KK_H

@@ -108,7 +108,35 @@ public:
 void Return::add(double t, long long int r){
     times.push_back(t);
     resids.push_back(r);
-}
+};
+
+void Return::print_times(){
+    int len = times.size();
+    cout << "{";
+    for (int i = 0; i < len; i++){
+        cout << times[i];
+        if (i == len - 1){
+        cout << "}" << endl;
+        }
+        else {
+            cout << ",";
+        }
+    }
+};
+
+void Return::print_resids(){
+    int len = resids.size();
+    cout << "{";
+    for (int i = 0; i < len; i++){
+        cout << resids[i];
+        if (i == len - 1){
+        cout << "}" << endl;
+        }
+        else {
+            cout << ",";
+        }
+    }
+};
 
 long long int karmarkar_karp(long long int * A, int n) {
     MaxHeap heap = MaxHeap(A, n);
