@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "helpers.h"
+#include "kk.h"
 
 // Usage: ./loop flag nloops
 void deprep(int*A, int*P, int*O, int n);
