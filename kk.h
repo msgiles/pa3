@@ -7,13 +7,14 @@
 
 #define MAX 1000000000000
 #define ARR_SIZE 100
+#include <vector>
 
 long long int karmarkar_karp(long long int * A, int n);
 
 class Return
 {
 public:
-	add(double t, long long int r);
+	void add(double t, long long int r);
 	Return();
 	~Return();
 	std::vector<double> times;

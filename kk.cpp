@@ -1,4 +1,3 @@
-#include <vector>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -106,7 +105,7 @@ public:
     }
 };
 
-Return::add(double t, long long int r){
+void Return::add(double t, long long int r){
     times.push_back(t);
     resids.push_back(r);
 }
