@@ -206,7 +206,7 @@ void deprep(long long int*A, int*P, long long int*O, int len) {
 
 void rand_ints(long long int*A, int len, long long int min, long long int max) {
 	for (int i = 0; i < len; i++) {
-		int r = min + rand() / (RAND_MAX / (max - min + 1) + 1);
+		int r = min + (rand() % (int)(max - min + 1));
 		A[i] = r;
 	}
 }
