@@ -106,6 +106,10 @@ public:
     }
 };
 
+Return::add(double t, long long int r){
+    times.push_back(t);
+    resids.push_back(r);
+}
 
 long long int karmarkar_karp(long long int * A, int n) {
     MaxHeap heap = MaxHeap(A, n);

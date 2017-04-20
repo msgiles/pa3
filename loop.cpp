@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
 		}
 		//TODO: format return
 	}
-
+free(A);free(S);free(nS);free(nnS);free(SO);free(nSO);free(nnSO);free(T_iter);
 }
 
 void deprep(long long int*A, long long int*P, long long int*O, int n) {

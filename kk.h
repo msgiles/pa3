@@ -10,4 +10,14 @@
 
 long long int karmarkar_karp(long long int * A, int n);
 
+class Return
+{
+public:
+	add(double t, long long int r);
+	Return();
+	~Return();
+	std::vector<double> times;
+	std::vector<long long int> resids;
+};
+
 #endif //CS124PA3_KK_H
