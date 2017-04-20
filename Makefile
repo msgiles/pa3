@@ -1,5 +1,7 @@
 CC = g++
 
+default: kk
+
 kk : kk.cpp
 	$(CC) kk.cpp -o kk 
 kk.o : kk.cpp kk.h
