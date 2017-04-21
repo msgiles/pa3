@@ -1,4 +1,5 @@
 #include <iomanip>
+#include <iostream>
 #include <fstream>
 #include "helpers.h"
 
@@ -13,7 +14,7 @@ int main(int argc, char* argv[]) {
     string filename = argv[1];
     ifstream file;
     file.open(filename);
-    long long int A[ARR_SIZE];
+    vector<long long int> A(ARR_SIZE);
     long long int cur_num;
 
     for (int i = 0; i < ARR_SIZE; i++) {
@@ -23,7 +24,7 @@ int main(int argc, char* argv[]) {
 
     file.close();
 
-    cout << karmarkar_karp(A);
+    cout << karmarkar_karp(&A);
 
     return 0;
 }
