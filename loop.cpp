@@ -7,7 +7,7 @@
 
 using namespace std;
 long long seed = chrono::system_clock::now().time_since_epoch().count();
-default_random_engine gen((unsigned)seed);
+mt19937_64 gen((unsigned)seed);
 
 // Usage: ./loop flag trials iterations
 void rand_ints(std::vector<long long int> *A, long long int min, long long int max);
