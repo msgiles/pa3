@@ -116,7 +116,7 @@ void Return::print_times(){
     for (int i = 0; i < len; i++){
         cout << times[i];
         if (i == len - 1){
-        cout << "}" << endl;
+        cout << "};" << endl;
         }
         else {
             cout << ",";
@@ -130,7 +130,7 @@ void Return::print_resids(){
     for (int i = 0; i < len; i++){
         cout << resids[i];
         if (i == len - 1){
-        cout << "}" << endl;
+        cout << "};" << endl;
         }
         else {
             cout << ",";

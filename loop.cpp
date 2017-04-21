@@ -151,43 +151,57 @@ int main(int argc, char* argv[]) {
 		P_annealing.add(((float)clock() - t) / CLOCKS_PER_SEC,p2.resid);
 	}
 
-    cout << "Karmarkar-Karp:" << endl;
-    cout << "Residuals:" << endl;
+    // cout << "Karmarkar-Karp:" << endl;
+    // cout << "Residuals:" << endl;
+    cout << "kkrs := ";
     kk.print_resids();
-    cout << "Times:" << endl;
+    // cout << "Times:" << endl;
+    cout << "kkts := ";
     kk.print_times();
 
-    cout << "Random Solutions - Standard:" << endl;
-    cout << "Residuals:" << endl;
+    // cout << "Random Solutions - Standard:" << endl;
+    // cout << "Residuals:" << endl;
+    cout << "Srandomrs := ";
     S_random.print_resids();
-    cout << "Times:" << endl;
+    // cout << "Times:" << endl;
+    cout << "Srandomts := ";
     S_random.print_times();
-    cout << "Random Solutions - Prepartitioned:" << endl;
-    cout << "Residuals:" << endl;
+    // cout << "Random Solutions - Prepartitioned:" << endl;
+    // cout << "Residuals:" << endl;
+    cout << "Prandomrs := ";
     P_random.print_resids();
-    cout << "Times:" << endl;
+    // cout << "Times:" << endl;
+    cout << "Prandomrs := ";
     P_random.print_times();
 
-    cout << "Hill-Climbing - Standard:" << endl;
-    cout << "Residuals:" << endl;
+    // cout << "Hill-Climbing - Standard:" << endl;
+    // cout << "Residuals:" << endl;
+    cout << "Shillrs := ";
     S_hill.print_resids();
-    cout << "Times:" << endl;
+    // cout << "Times:" << endl;
+    cout << "Shillts := ";
     S_hill.print_times();
-    cout << "Hill-Climbing - Prepartitioned:" << endl;
-    cout << "Residuals:" << endl;
+    // cout << "Hill-Climbing - Prepartitioned:" << endl;
+    // cout << "Residuals:" << endl;
+    cout << "Phillrs := ";
     P_hill.print_resids();
-    cout << "Times:" << endl;
+    // cout << "Times:" << endl;
+    cout << "Phillts := ";
     P_hill.print_times();
 
-    cout << "Simulated Annealing - Standard:" << endl;
-    cout << "Residuals:" << endl;
+    // cout << "Simulated Annealing - Standard:" << endl;
+    // cout << "Residuals:" << endl;
+    cout << "Sannealingrs := ";
     S_annealing.print_resids();
-    cout << "Times:" << endl;
+    // cout << "Times:" << endl;
+    cout << "Sannealingts := ";
     S_annealing.print_times();
-    cout << "Simulated Annealing - Prepartitioned:" << endl;
-    cout << "Residuals:" << endl;
+    // cout << "Simulated Annealing - Prepartitioned:" << endl;
+    // cout << "Residuals:" << endl;
+    cout << "Pannealingrs := ";
     P_annealing.print_resids();
-    cout << "Times:" << endl;
+    // cout << "Times:" << endl;
+    cout << "Pannealingts := ";
     P_annealing.print_times();
 
 }
