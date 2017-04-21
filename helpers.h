@@ -24,17 +24,25 @@ public:
 	void print_resids();
 };
 
-// class Solution
-// {
-// private:
-// 	long long int * A;
-// public:
-// 	std::std::vector<int> P;
-// 	long long int resid;
-// 	Solution(long long int *A, int n);
-// 	void randomize();
-// 	void neighbor();
-// 	void update();
-// };
+class Solution
+{
+protected:
+	long long int * A;
+public:
+	vector<int> S;
+	long long int resid;
+	Solution(long long int *A, int n);
+	void randomize();
+	void neighbor(Solution src);
+	void update();
+	void reassign(Solution src);
+};
+
+class P_Solution: public Solution {
+	vector<long long int> nA;
+};
+
+class S_Solution: public Solution {
+};
 
 #endif //CS124PA3_KK_H

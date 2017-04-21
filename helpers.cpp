@@ -12,7 +12,7 @@ public:
     vector<long long int> array;
     int heap_size;
 
-    MaxHeap(long long int * A, int n) {
+    MaxHeap(vector<long long int> A, int n) {
         array.assign(A, A + n);
         heap_size = n;
     }
@@ -138,15 +138,69 @@ void Return::print_resids(){
     }
 };
 
-// Solution Solution::Solution(long long int*A, int n){
-//     A = A;
-//     P.resize(n);
-//     randomize();
-//     update();
-// };
+Solution Solution::Solution(long long int*A, int n){
+    A = A;
+    S.resize(n);
+};
 
-long long int karmarkar_karp(long long int * A, int n) {
-    MaxHeap heap = MaxHeap(A, n);
+void Solution::randomize(){
+};
+
+void Solution::neighbor(){
+};
+
+void Solution::update(){
+};
+
+void Solution::reassign(Solution src){
+    S = src.S;
+    resid = src.resid;
+};
+
+P_Solution P_Solution::P_Solution(long long int*A, int n){
+    Solution::Solution(A, n);
+    randomize();
+    update();
+};
+
+void P_Solution::randomize(){
+    for (int i = 0; i < ARR_SIZE; i++){
+        int r = min + (rand() % (int)(max - min + 1));
+        S[i] = r;
+    }
+};
+
+void P_Solution::update(){
+    nA.fill(nA.begin(), nA.end(),0);
+    for (int i = 0; i < ARR_SIZE; i++){
+        nA[S[i]] += A[i];
+    }
+    resid = karmarkar_karp(nA);
+};
+
+void P_Solution::neighbor(P_Solution src){
+    reassign(src);
+    int i = min + (rand() % (int)(max - min + 1));
+    int j = min + (rand() % (int)(max - min + 1));
+    // cout << "j: " << j << endl;
+    // cout << "S[j]: " << S[j] << " vs " << S[i] << endl;
+    do {
+        j = min + (rand() % (int)(max - min + 1));
+        // cout << "j: " << j << endl;
+        // cout << "S[j]: " << S[j] << " vs " << S[i] << endl;
+    }
+    while (S[i] == j);
+    nS[i] = j;
+};
+
+P_Solution P_Solution::P_Solution(long long int*A, int n){
+    Solution::Solution(A, n);
+    randomize();
+    update();
+};
+
+long long int karmarkar_karp(vector<long long int> A) {
+    MaxHeap heap = MaxHeap(A, A.length());
     heap.build_heap();
     long long int e1, e2;
 
