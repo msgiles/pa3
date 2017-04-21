@@ -12,7 +12,7 @@
 #include <iomanip>
 #include <vector>
 
-long long int karmarkar_karp(long long int * A, int n);
+long long int karmarkar_karp(std::vector<long long int> *A);
 
 class Return
 {
@@ -26,23 +26,33 @@ public:
 
 class Solution
 {
-protected:
-	long long int * A;
 public:
-	vector<int> S;
+	std::vector<long long int> *A;
+	std::vector<int> S;
 	long long int resid;
-	Solution(long long int *A, int n);
-	void randomize();
-	void neighbor(Solution src);
+	Solution(std::vector<long long int> *arr);
 	void update();
+	void randomize();
 	void reassign(Solution src);
 };
 
 class P_Solution: public Solution {
-	vector<long long int> nA;
+public:
+	P_Solution(std::vector<long long int> *arr);
+	std::vector<long long int> nA;
+	void update();
+	void reassign(P_Solution src);
+	void randomize();
+	void neighbor(P_Solution src);
 };
 
 class S_Solution: public Solution {
+public:
+	S_Solution(std::vector<long long int> *arr);
+	void update();
+	void reassign(S_Solution src);
+	void randomize();
+	void neighbor(S_Solution src);
 };
 
 #endif //CS124PA3_KK_H
