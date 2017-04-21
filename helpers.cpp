@@ -112,29 +112,15 @@ void Return::add(float t, long long int r){
 
 void Return::print_times(){
     int len = times.size();
-    cout << "{";
     for (int i = 0; i < len; i++){
-        cout << times[i];
-        if (i == len - 1){
-        cout << "};" << endl;
-        }
-        else {
-            cout << ",";
-        }
+        cout << times[i] << endl;
     }
 };
 
 void Return::print_resids(){
     int len = resids.size();
-    cout << "{";
     for (int i = 0; i < len; i++){
-        cout << resids[i];
-        if (i == len - 1){
-        cout << "};" << endl;
-        }
-        else {
-            cout << ",";
-        }
+        cout << resids[i] << endl;
     }
 };
 
