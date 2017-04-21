@@ -215,8 +215,8 @@ void S_Solution::update(){
     resid = 0;
     for (int i = 0; i < S.size(); i++){
         resid += (*A)[i] * S[i];
-        resid = abs(resid);
     }
+    resid = abs(resid);
 };
 
 void S_Solution::neighbor(S_Solution src){
