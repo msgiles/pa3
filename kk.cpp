@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 
     file.close();
 
-    cout << karmarkar_karp(A, ARR_SIZE);
+    cout << karmarkar_karp(A);
 
     return 0;
 }

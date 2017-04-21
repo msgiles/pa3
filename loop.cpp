@@ -6,13 +6,15 @@
 #include "helpers.h"
 
 using namespace std;
+long long seed = chrono::system_clock::now().time_since_epoch().count();
+default_random_engine gen((unsigned)seed);
 
 // Usage: ./loop flag trials iterations
 void rand_ints(std::vector<long long int> *A, long long int min, long long int max);
 
 int main(int argc, char* argv[]) {
+    uniform_real_distribution<double> rnd_prb(0.0, 1.0);
 
-	srand(time(NULL));
 	int flag = atoi(argv[1]);  // Debugging flag
 	int trials = atoi(argv[2]);  // Number of diff random int arrays
 	int iterations = atoi(argv[3]);  // For heuristics allowing for multiple runs, number of iters for each trial
@@ -27,13 +29,13 @@ int main(int argc, char* argv[]) {
 	Return kk, S_random, S_hill, S_annealing, P_kk, P_random, P_hill, P_annealing;
 
 
-	S_Solution s0(&A);
-	S_Solution s1(&A);
-	S_Solution s2(&A);
+	S_Solution s0(&A, &gen);
+	S_Solution s1(&A, &gen);
+	S_Solution s2(&A, &gen);
 
-	P_Solution p0(&A);
-	P_Solution p1(&A);
-	P_Solution p2(&A);
+	P_Solution p0(&A, &gen);
+	P_Solution p1(&A, &gen);
+	P_Solution p2(&A, &gen);
 
 
 	clock_t t;
@@ -70,10 +72,12 @@ int main(int argc, char* argv[]) {
 
 			if (s1.resid < s0.resid){
 				s0.reassign(s1);
+//				cout << "standard residue: " << s0.resid << endl;
 			}
 
 			if (p1.resid < p0.resid){
 				p0.reassign(p1);
+//				cout << "prepartitioned residue: " << p0.resid << endl;
 			}
 		}
 		S_random.add(((float)clock() - t) / CLOCKS_PER_SEC,s0.resid);
@@ -118,7 +122,7 @@ int main(int argc, char* argv[]) {
 			}
 			else {
 				double p = exp((-s1.resid - s0.resid) / T_iter[i]);
-				double d = (double) rand() / (double) RAND_MAX;
+				double d = rnd_prb(gen);
 				if (d <= p){
 					s0.reassign(s1);
 				}
@@ -129,7 +133,7 @@ int main(int argc, char* argv[]) {
 			}
 			else {
 				double p = exp((-s1.resid - s0.resid) / T_iter[i]);
-				double d = (double) rand() / (double) RAND_MAX;
+				double d = rnd_prb(gen);
 				if (d <= p){
 					p0.reassign(p1);
 				}
@@ -147,50 +151,51 @@ int main(int argc, char* argv[]) {
 		P_annealing.add(((float)clock() - t) / CLOCKS_PER_SEC,p2.resid);
 	}
 
-cout << "Karmarkar-Karp:" << endl;
-cout << "Residuals:" << endl;
-kk.print_resids();
-cout << "Times:" << endl;
-kk.print_times();
+    cout << "Karmarkar-Karp:" << endl;
+    cout << "Residuals:" << endl;
+    kk.print_resids();
+    cout << "Times:" << endl;
+    kk.print_times();
 
-cout << "Random Solutions - Standard:" << endl;
-cout << "Residuals:" << endl;
-S_random.print_resids();
-cout << "Times:" << endl;
-S_random.print_times();
-cout << "Random Solutions - Prepartitioned:" << endl;
-cout << "Residuals:" << endl;
-P_random.print_resids();
-cout << "Times:" << endl;
-P_random.print_times();
+    cout << "Random Solutions - Standard:" << endl;
+    cout << "Residuals:" << endl;
+    S_random.print_resids();
+    cout << "Times:" << endl;
+    S_random.print_times();
+    cout << "Random Solutions - Prepartitioned:" << endl;
+    cout << "Residuals:" << endl;
+    P_random.print_resids();
+    cout << "Times:" << endl;
+    P_random.print_times();
 
-cout << "Hill-Climbing - Standard:" << endl;
-cout << "Residuals:" << endl;
-S_hill.print_resids();
-cout << "Times:" << endl;
-S_hill.print_times();
-cout << "Hill-Climbing - Prepartitioned:" << endl;
-cout << "Residuals:" << endl;
-P_hill.print_resids();
-cout << "Times:" << endl;
-P_hill.print_times();
+    cout << "Hill-Climbing - Standard:" << endl;
+    cout << "Residuals:" << endl;
+    S_hill.print_resids();
+    cout << "Times:" << endl;
+    S_hill.print_times();
+    cout << "Hill-Climbing - Prepartitioned:" << endl;
+    cout << "Residuals:" << endl;
+    P_hill.print_resids();
+    cout << "Times:" << endl;
+    P_hill.print_times();
 
-cout << "Simulated Annealing - Standard:" << endl;
-cout << "Residuals:" << endl;
-S_annealing.print_resids();
-cout << "Times:" << endl;
-S_annealing.print_times();
-cout << "Simulated Annealing - Prepartitioned:" << endl;
-cout << "Residuals:" << endl;
-P_annealing.print_resids();
-cout << "Times:" << endl;
-P_annealing.print_times();
+    cout << "Simulated Annealing - Standard:" << endl;
+    cout << "Residuals:" << endl;
+    S_annealing.print_resids();
+    cout << "Times:" << endl;
+    S_annealing.print_times();
+    cout << "Simulated Annealing - Prepartitioned:" << endl;
+    cout << "Residuals:" << endl;
+    P_annealing.print_resids();
+    cout << "Times:" << endl;
+    P_annealing.print_times();
 
 }
 
 void rand_ints(std::vector<long long int> *A, long long int min, long long int max) {
+    uniform_int_distribution<long long int> random(min, max);
 	for (int i = 0; i < (*A).size(); i++) {
-		long long int r = min + (rand() % (max - min + 1));
+		long long int r = min + (random(gen) % (max - min + 1));
 		(*A)[i] = r;
 	}
 }

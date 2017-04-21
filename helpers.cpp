@@ -138,9 +138,10 @@ void Return::print_resids(){
     }
 };
 
-Solution::Solution(std::vector<long long int> *arr){
+Solution::Solution(std::vector<long long int> *arr, default_random_engine *rnd_gen){
     A = arr;
     S.resize(ARR_SIZE);
+    gen = *rnd_gen;
 };
 
 void Solution::update(){};
@@ -150,7 +151,7 @@ void Solution::reassign(Solution src){
     resid = src.resid;
 };
 
-P_Solution::P_Solution(std::vector<long long int> *arr) : Solution(arr) {
+P_Solution::P_Solution(std::vector<long long int> *arr, default_random_engine *rnd_gen) : Solution(arr, rnd_gen) {
     nA.resize(ARR_SIZE);
     randomize();
     update();
@@ -165,8 +166,9 @@ void P_Solution::update(){
 };
 
 void P_Solution::randomize(){
+    uniform_int_distribution<int> random(0, S.size() - 1);
     for (int i = 0; i < S.size(); i++){
-        int r = (rand() % (int)(S.size()));
+        int r = random(gen);
         S[i] = r;
     }
     update();
@@ -178,25 +180,28 @@ void P_Solution::reassign(P_Solution src){
 };
 
 void P_Solution::neighbor(P_Solution src){
+    uniform_int_distribution<int> random(0, S.size() - 1);
     reassign(src);
-    int i = (rand() % (int)(S.size()));
+
+    int i = random(gen);
     int j;
     do {
-        j = (rand() % (int)(S.size()));
+        j = random(gen);
     }
-    while (S[i] == j);
-    src.S[i] = j;
+    while (src.S[i] == j);
+    S[i] = j;
     update();
 };
 
-S_Solution::S_Solution(std::vector<long long int> *arr) : Solution(arr) {
+S_Solution::S_Solution(std::vector<long long int> *arr, default_random_engine *rnd_gen) : Solution(arr, rnd_gen) {
     randomize();
     update();
 };
 
 void S_Solution::randomize(){
+    uniform_real_distribution<float> random(0.0, 1.0);
     for (int i = 0; i < S.size(); i++){
-        int r = ((float) rand() / RAND_MAX);
+        float r = random(gen);
         if (r < .5){
             S[i] = -1;
         }
@@ -220,19 +225,20 @@ void S_Solution::update(){
 };
 
 void S_Solution::neighbor(S_Solution src){
+    uniform_real_distribution<float> rnd_prb(0.0, 1.0);
+    uniform_int_distribution<int> rnd_int(0, S.size() - 1);
+
     reassign(src);
-    int r = ((float) rand() / RAND_MAX);
-    int i = (rand() % (int)(S.size()));
+    float r = rnd_prb(gen);
+    int i = rnd_int(gen);
+    S[i] = -S[i];
     if (r < .5){
-        S[i] = S[i]*-1;
-    }
-    else {
         int j;
         do {
-            j = (rand() % (int)(S.size()));
+            j = rnd_int(gen);
         }
         while (i == j);
-        S[j] = S[j]*-1;
+        S[j] = -S[j];
     }
     update();
 };
