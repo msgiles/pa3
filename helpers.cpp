@@ -138,7 +138,7 @@ void Return::print_resids(){
     }
 };
 
-Solution::Solution(std::vector<long long int> *arr, default_random_engine *rnd_gen){
+Solution::Solution(std::vector<long long int> *arr, mt19937_64 *rnd_gen){
     A = arr;
     S.resize(ARR_SIZE);
     gen = *rnd_gen;
@@ -151,7 +151,7 @@ void Solution::reassign(Solution src){
     resid = src.resid;
 };
 
-P_Solution::P_Solution(std::vector<long long int> *arr, default_random_engine *rnd_gen) : Solution(arr, rnd_gen) {
+P_Solution::P_Solution(std::vector<long long int> *arr, mt19937_64 *rnd_gen) : Solution(arr, rnd_gen) {
     nA.resize(ARR_SIZE);
     randomize();
     update();
@@ -193,7 +193,7 @@ void P_Solution::neighbor(P_Solution src){
     update();
 };
 
-S_Solution::S_Solution(std::vector<long long int> *arr, default_random_engine *rnd_gen) : Solution(arr, rnd_gen) {
+S_Solution::S_Solution(std::vector<long long int> *arr, mt19937_64 *rnd_gen) : Solution(arr, rnd_gen) {
     randomize();
     update();
 };
