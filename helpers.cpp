@@ -205,6 +205,7 @@ long long int karmarkar_karp(vector<long long int> A) {
     long long int e1, e2;
 
     while (!heap.check_empty()) {
+//        heap.display_heap();
         e1 = heap.extract_max();
         if (heap.check_empty()) {
             return e1;

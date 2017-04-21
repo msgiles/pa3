@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h> 
+#include <math.h>
 #include <time.h> 
 #include <string>
+#include <random>
+#include <chrono>
 #include "helpers.h"
 
 using namespace std;
@@ -17,6 +17,7 @@ void rand_soln(int*S, int len, int min, int max);
 void rand_neighbor(int *S, int *nS, int min, int max);
 
 int main(int argc, char* argv[]) {
+
 	srand(time(NULL));
 	int flag = atoi(argv[1]);  // Debugging flag
 	int trials = atoi(argv[2]);  // Number of diff random int arrays
@@ -30,7 +31,7 @@ int main(int argc, char* argv[]) {
 		*SO = (long long int*) malloc(ARR_SIZE * sizeof(long long int)),
 		*nSO = (long long int*) malloc(ARR_SIZE * sizeof(long long int)),
 		*nnSO = (long long int*) malloc(ARR_SIZE * sizeof(long long int));
-	float *T_iter = (float *) malloc(iterations * sizeof(float));
+	double *T_iter = (double *) malloc(iterations * sizeof(double));
 
 	long long int S_resid = MAX,
 				  nS_resid = MAX,
@@ -53,14 +54,14 @@ int main(int argc, char* argv[]) {
 		nnS_resid = MAX;
 
 		// Karmarkar-Karp
-		// cout << "Karmarkar-Karp" << endl;
+        cout << "Karmarkar-Karp" << endl;
 		t = clock();
 		S_resid = karmarkar_karp(A,ARR_SIZE);
 		kk.add(((float)clock() - t) / CLOCKS_PER_SEC, S_resid);
 		S_resid = MAX;
 
 		// Random Solution
-		// cout << "Random" << endl;
+        cout << "Random" << endl;
 		t = clock();
 		rand_soln(S, ARR_SIZE, 0, ARR_SIZE-1);
 		deprep(A,S,SO,ARR_SIZE);
@@ -80,7 +81,7 @@ int main(int argc, char* argv[]) {
 		random.add(((float)clock() - t) / CLOCKS_PER_SEC,S_resid);
 
 		// Hill Climbing
-		// cout << "Hill" << endl;
+		cout << "Hill" << endl;
 		t = clock();
 		rand_soln(S, ARR_SIZE, 0, ARR_SIZE-1);
 		deprep(A,S,SO,ARR_SIZE);
@@ -105,7 +106,7 @@ int main(int argc, char* argv[]) {
 		hill.add(((float)clock() - t) / CLOCKS_PER_SEC,S_resid);
 
 		// Simulated Annealing
-		// cout << "Annealing" << endl;
+		cout << "Annealing" << endl;
 		t = clock();
 		rand_soln(S, ARR_SIZE, 0, ARR_SIZE-1);
 		memcpy(nnS, S, sizeof(int) * ARR_SIZE);
@@ -126,8 +127,8 @@ int main(int argc, char* argv[]) {
 				S_resid = nS_resid;
 			}
 			else {
-				float p = exp((-nS_resid - S_resid) / T_iter[i]);
-				float d = (float) rand() / (float) RAND_MAX;
+				double p = exp((-nS_resid - S_resid) / T_iter[i]);
+				double d = (double) rand() / (double) RAND_MAX;
 				if (d <= p){
 					memcpy(S, nnS, sizeof(int) * ARR_SIZE);
 					S_resid = nnS_resid;
@@ -148,24 +149,15 @@ std::string kk_resids ("{"), kk_times ("{"), random_resids ("{"), random_times (
 hill_resids ("{"), hill_times ("{"), annealing_resids("{"), annealing_times("{");
 
 for (int i = 0; i < trials-1; i++){
-	kk_resids.append(std::to_string(kk.resids[i]) + ',');
-	kk_times.append(std::to_string(kk.times[i]) + ',');
-	random_resids.append(std::to_string(random.resids[i]) + ',');
-	random_times.append(std::to_string(random.times[i]) + ',');
-	hill_resids.append(std::to_string(hill.resids[i]) + ',');
-	hill_times.append(std::to_string(hill.times[i]) + ',');
-	annealing_resids.append(std::to_string(annealing.resids[i]) + ',');
-	annealing_times.append(std::to_string(annealing.times[i]) + ',');
+	kk_resids.append(to_string(kk.resids[i]) + ',');
+	kk_times.append(to_string(kk.times[i]) + ',');
+	random_resids.append(to_string(random.resids[i]) + ',');
+	random_times.append(to_string(random.times[i]) + ',');
+	hill_resids.append(to_string(hill.resids[i]) + ',');
+	hill_times.append(to_string(hill.times[i]) + ',');
+	annealing_resids.append(to_string(annealing.resids[i]) + ',');
+	annealing_times.append(to_string(annealing.times[i]) + ',');
 }
-
-// kk_resids.append(std::to_string(kk.resids[trials-1]) + '}');
-// kk_times.append(std::to_string(kk.times[trials - 1]) + '}');
-// random_resids.append(std::to_string(random.resids[trials-1]) + '}');
-// random_times.append(std::to_string(random.times[trials - 1]) + '}');
-// hill_resids.append(std::to_string(hill.resids[trials-1]) + '}');
-// hill_times.append(std::to_string(hill.times[trials - 1]) + '}');
-// annealing_resids.append(std::to_string(annealing.resids[trials-1]) + '}');
-// annealing_times.append(std::to_string(annealing.times[trials - 1]) + '}');
 
 
 cout << "Karmarkar-Karp:" << endl;
@@ -199,33 +191,32 @@ void deprep(long long int*A, int*P, long long int*O, int len) {
 	}
 	
 	for (int i = 0; i < len; i++) {
-		int idx = P[i];
-		O[idx] += A[i];
+		O[P[i]] += A[i];
 	}
 }
 
 void rand_ints(long long int*A, int len, long long int min, long long int max) {
 	for (int i = 0; i < len; i++) {
-		long long int r = min + (rand() % (long long int)(max - min + 1));
+		long long int r = min + (rand() % (max - min + 1));
 		A[i] = r;
 	}
 }
 
 void rand_soln(int*S, int len, int min, int max) {
 	for (int i = 0; i < len; i++) {
-		int r = min + (rand() % (int)(max - min + 1));
+		int r = min + (rand() % (max - min + 1));
 		S[i] = r;
 	}
 }
 
 void rand_neighbor(int *S, int *nS, int min, int max){
 	memcpy(nS, S, sizeof(int) * ARR_SIZE);
-	int i = min + (rand() % (int)(max - min + 1));
-	int j = min + (rand() % (int)(max - min + 1));
+	int i = min + (rand() % (max - min + 1));
+	int j;
 	// cout << "j: " << j << endl;
 	// cout << "S[j]: " << S[j] << " vs " << S[i] << endl;
 	do {
-		j = min + (rand() % (int)(max - min + 1));
+		j = min + (rand() % (max - min + 1));
 		// cout << "j: " << j << endl;
 		// cout << "S[j]: " << S[j] << " vs " << S[i] << endl;
 	}
